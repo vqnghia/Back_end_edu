@@ -11,10 +11,7 @@ use App\Http\Controllers\api\DonViCongTacController;
 use App\Http\Controllers\api\MonHocController;
 use App\Http\Controllers\api\PhongHocController;
 use App\Http\Controllers\api\NguoiThuePhongController;
-
-
-
-
+use App\Http\Controllers\api\LichPhongController;
 
 
 Route::middleware('api')->get('/user', function (Request $request) {
@@ -43,3 +40,9 @@ Route::apiResource('hoc_sinhs',HocSinhConTroller::class);
 Route::apiResource('phong_hocs',PhongHocController::class);
 Route::apiResource('mon_hocs',MonHocController::class);
 Route::apiResource('nguoi_thue_phongs',NguoiThuePhongController::class);
+
+//SAP LICH
+Route::get('/lich_phongs',[LichPhongController::class,'index']);
+Route::post('/lich_phong_updates', [LichPhongController::class, 'update']);
+Route::post('/lich_phong_resets', [LichPhongController::class, 'reset']);
+
