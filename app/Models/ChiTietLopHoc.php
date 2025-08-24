@@ -10,7 +10,7 @@ class ChiTietLopHoc extends Model
 
     protected $primaryKey = 'id';
     protected $keyType = 'string';
-    public $incrementing = false; // id là char(10)
+    public $incrementing = true; // id là char(10)
     public $timestamps = true;
 
     protected $fillable = [

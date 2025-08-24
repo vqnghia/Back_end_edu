@@ -23,4 +23,14 @@ class HocSinh extends Model
         'dia_chi',
         'so_phu_huynh',
     ];
+    public function chiTietLop()
+    {
+        return $this->hasMany(ChiTietLopHoc::class, 'hoc_sinh_id', 'id');
+    }
+
+    public function lopHocs()
+    {
+        return $this->belongsToMany(LopHoc::class, 'chi_tiet_lop_hoc', 'hoc_sinh_id', 'lop_hoc_id');
+    }
+
 }

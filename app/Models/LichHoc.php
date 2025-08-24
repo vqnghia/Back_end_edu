@@ -15,9 +15,9 @@ class LichHoc extends Model
         'id',
         'lop_hoc_id',
         'phong_hoc_id',
-        'thu_trong_tuan',
-        'gio_bat_dau',
-        'gio_ket_thuc',
+        'thu',
+        'buoi',
+        'trang_thai',
     ];
 
     // Mối quan hệ với lớp học
@@ -26,15 +26,4 @@ class LichHoc extends Model
         return $this->belongsTo(LopHoc::class, 'lop_hoc_id');
     }
 
-    // Mối quan hệ với phòng học
-    public function phongHoc()
-    {
-        return $this->belongsTo(PhongHoc::class, 'phong_hoc_id');
-    }
-
-    // Danh sách giáo viên được phân công
-    public function phanCongGiangDay()
-    {
-        return $this->hasMany(PhanCongGiangDay::class, 'lich_hoc_id');
-    }
 }

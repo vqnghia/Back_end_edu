@@ -12,6 +12,9 @@ use App\Http\Controllers\api\MonHocController;
 use App\Http\Controllers\api\PhongHocController;
 use App\Http\Controllers\api\NguoiThuePhongController;
 use App\Http\Controllers\api\LichPhongController;
+use App\Http\Controllers\api\LopHocController;
+use App\Http\Controllers\api\ChiTietLopHocController;
+use App\Http\Controllers\api\LichDayController;
 
 
 Route::middleware('api')->get('/user', function (Request $request) {
@@ -45,4 +48,14 @@ Route::apiResource('nguoi_thue_phongs',NguoiThuePhongController::class);
 Route::get('/lich_phongs',[LichPhongController::class,'index']);
 Route::post('/lich_phong_updates', [LichPhongController::class, 'update']);
 Route::post('/lich_phong_resets', [LichPhongController::class, 'reset']);
+Route::get('/lop_hocs/{lopHoc}/lich_day', [LichDayController::class, 'index']);        // load lịch của lớp
+Route::post('/lop_hocs/{lopHoc}/lich_day/toggle', [LichDayController::class, 'toggle']); // tick/untick ngay
+
+
+//LOP_HOC
+Route::apiResource('/lop_hocs',LopHocController::class);
+Route::post('/chi_tiet_lops', [ChiTietLopHocController::class, 'store']);
+Route::get('/lop_hocs/{lop_hoc_id}/hoc_sinhs', [ChiTietLopHocController::class, 'getHocSinhTheoLop']);
+Route::delete('/lop_hocs/{lop_hoc_id}/hoc_sinhs/{hoc_sinh_id}', [ChiTietLopHocController::class, 'destroyByPair']);
+Route::get('/lop_hocs/{lop_hoc_id}/hoc_sinhs/not_in', [ChiTietLopHocController::class, 'getHocSinhChuaThuocLop']);
 

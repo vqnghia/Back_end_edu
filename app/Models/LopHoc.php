@@ -41,4 +41,14 @@ class LopHoc extends Model
     {
         return $this->belongsTo(PhongHoc::class, 'phong_hoc_id', 'id');
     }
+    public function chiTietLop()
+    {
+        return $this->hasMany(ChiTietLopHoc::class, 'lop_hoc_id', 'id');
+    }
+
+    public function hocSinhs()
+    {
+        return $this->belongsToMany(HocSinh::class, 'chi_tiet_lop_hoc', 'lop_hoc_id', 'hoc_sinh_id');
+    }
+
 }
