@@ -99,5 +99,16 @@ class LopHocController extends Controller
             'message' => 'Xóa lớp học thành công'
         ]);
     }
+    // Tìm kiếm lớp theo giáo viên và lấy lịch dạy
+    public function getLopHocByGiaoVien($giao_vien_id)
+    {
+        // Lấy danh sách lớp theo giáo viên
+        $lopHocs = LopHoc::where('giao_vien_id', $giao_vien_id)
+            ->with(['lichDays:id,lop_hoc_id,thu,buoi']) // chỉ lấy cột cần thiết
+            ->get(['id', 'ten_lop', 'giao_vien_id']); // chỉ lấy id, tên lớp và giáo viên
+
+        return response()->json($lopHocs);
+    }
+
 
 }

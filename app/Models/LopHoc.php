@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\LichDay;
 
 class LopHoc extends Model
 {
@@ -49,6 +50,10 @@ class LopHoc extends Model
     public function hocSinhs()
     {
         return $this->belongsToMany(HocSinh::class, 'chi_tiet_lop_hoc', 'lop_hoc_id', 'hoc_sinh_id');
+    }
+    public function lichDays()
+    {
+        return $this->hasMany(LichDay::class, 'lop_hoc_id', 'id');
     }
 
 }

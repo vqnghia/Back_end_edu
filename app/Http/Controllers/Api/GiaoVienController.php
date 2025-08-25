@@ -10,9 +10,14 @@ use Illuminate\Http\Request;
 class GiaoVienController extends Controller
 {
     // Lấy danh sách giáo viên
-    public function index()
+    public function index(Request $request)
     {
-        $giaoVien = GiaoVien::with(['donViCongTac', 'taiKhoan'])->get();
+         $query = GiaoVien::with(['donViCongTac', 'taiKhoan']);
+        // Nếu có tham số search thì lọc theo họ tên
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('ho_ten', 'like', '%' . $request->search . '%');
+        }
+        $giaoVien = $query->get();
         return response()->json($giaoVien);
     }
 
