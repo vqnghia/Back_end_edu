@@ -71,24 +71,34 @@ class ChiTietLopHocController extends Controller
         ]);
     }
    public function getHocSinhChuaThuocLop($lop_hoc_id, Request $request)
-{
-    // Lấy id học sinh đã thuộc lớp này
-    $hocSinhTrongLop = ChiTietLopHoc::where('lop_hoc_id', $lop_hoc_id)
-        ->pluck('hoc_sinh_id')
-        ->toArray();
+    {
+        // Lấy id học sinh đã thuộc lớp này
+        $hocSinhTrongLop = ChiTietLopHoc::where('lop_hoc_id', $lop_hoc_id)
+            ->pluck('hoc_sinh_id')
+            ->toArray();
 
-    // Bắt đầu query lấy học sinh chưa thuộc lớp
-    $query = HocSinh::whereNotIn('id', $hocSinhTrongLop);
+        // Bắt đầu query lấy học sinh chưa thuộc lớp
+        $query = HocSinh::whereNotIn('id', $hocSinhTrongLop);
 
-    // Nếu có từ khóa tìm kiếm
-    if ($request->has('search') && !empty($request->search)) {
-        $query->where('ho_ten', 'like', '%' . $request->search . '%');
+        // Nếu có từ khóa tìm kiếm
+        if ($request->has('search') && !empty($request->search)) {
+            $query->where('ho_ten', 'like', '%' . $request->search . '%');
+        }
+        // Lấy số bản ghi mỗi trang, mặc định = 10
+        $perPage = (int) $request->get('per_page', 10);
+        $hocSinhs = $query->paginate($perPage);
+
+        return response()->json($hocSinhs);
     }
-    // Lấy số bản ghi mỗi trang, mặc định = 10
-    $perPage = (int) $request->get('per_page', 10);
-    $hocSinhs = $query->paginate($perPage);
+    public function getLopHocByHocSinh($hocSinhId)
+    {
+        $lopHocs = ChiTietLopHoc::where('hoc_sinh_id', $hocSinhId)
+            ->with('lopHoc:id,ten_lop') // join sang bảng lop_hoc
+            ->get()
+            ->pluck('lopHoc');
 
-    return response()->json($hocSinhs);
-}
+        return response()->json($lopHocs);
+    }
+
 
 }

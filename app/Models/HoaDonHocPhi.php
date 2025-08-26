@@ -18,11 +18,17 @@ class HoaDonHocPhi extends Model
         'id',
         'nhan_vien_id',
         'lop_hoc_id',
+        'hoc_sinh_id',
         'ngay_het_han',
         'ngay_lap',
         'tong_tien',
     ];
 
+
+    public function hocSinh()
+    {
+        return $this->belongsTo(HocSinh::class, 'hoc_sinh_id', 'id');
+    }
     public function nhanVien()
     {
         return $this->belongsTo(NhanVien::class, 'nhan_vien_id', 'id');

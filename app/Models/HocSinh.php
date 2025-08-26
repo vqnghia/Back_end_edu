@@ -32,5 +32,9 @@ class HocSinh extends Model
     {
         return $this->belongsToMany(LopHoc::class, 'chi_tiet_lop_hoc', 'hoc_sinh_id', 'lop_hoc_id');
     }
+      public function hoaDons()
+    {
+        return $this->hasMany(HoaDonHocPhi::class, 'hoc_sinh_id', 'id');
+    }
 
 }

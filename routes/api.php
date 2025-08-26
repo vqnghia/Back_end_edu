@@ -15,6 +15,7 @@ use App\Http\Controllers\api\LichPhongController;
 use App\Http\Controllers\api\LopHocController;
 use App\Http\Controllers\api\ChiTietLopHocController;
 use App\Http\Controllers\api\LichDayController;
+use App\Http\Controllers\api\HoaDonHocPhiController;
 
 
 Route::middleware('api')->get('/user', function (Request $request) {
@@ -60,3 +61,7 @@ Route::get('/lop_hocs/{lop_hoc_id}/hoc_sinhs', [ChiTietLopHocController::class, 
 Route::delete('/lop_hocs/{lop_hoc_id}/hoc_sinhs/{hoc_sinh_id}', [ChiTietLopHocController::class, 'destroyByPair']);
 Route::get('/lop_hocs/{lop_hoc_id}/hoc_sinhs/not_in', [ChiTietLopHocController::class, 'getHocSinhChuaThuocLop']);
 
+//HOA DON
+Route::apiResource('/hoa_don_hoc_phis',HoaDonHocPhiController::class);
+Route::get('/hoc_sinh/{id}/lop-hoc', [ChiTietLopHocController::class, 'getLopHocByHocSinh']);
+Route::get('/hoa_don/hoc_sinh/{id}', [HoaDonHocPhiController::class, 'getByHocSinh']);

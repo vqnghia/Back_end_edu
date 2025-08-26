@@ -55,5 +55,12 @@ class LopHoc extends Model
     {
         return $this->hasMany(LichDay::class, 'lop_hoc_id', 'id');
     }
-
+    public function hoaDonHocPhis()
+    {
+        return $this->hasMany(HoaDonHocPhi::class, 'lop_hoc_id', 'id');
+    }
+    public function hoaDons()
+    {
+        return $this->hasMany(HoaDonHocPhi::class, 'lop_hoc_id', 'id');
+    }
 }
